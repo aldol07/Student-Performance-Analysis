@@ -18,6 +18,7 @@ def predict_datapoint():
         return render_template('home.html')
     else:
         try:
+            # Collect data from the form
             data = CustomData(
                 gender=request.form.get('gender'),
                 race_ethnicity=request.form.get('ethnicity'),
@@ -27,19 +28,22 @@ def predict_datapoint():
                 reading_score=float(request.form.get('reading_score')),
                 writing_score=float(request.form.get('writing_score'))
             )
+            # Convert to DataFrame
             pred_df = data.get_data_as_data_frame()
-            print(pred_df)
-            print("Before Prediction")
+            print("Input DataFrame:\n", pred_df)
 
+            # Prediction
             predict_pipeline = PredictPipeline()
-            print("Mid Prediction")
             results = predict_pipeline.predict(pred_df)
-            print("After Prediction")
+            print("Prediction Result:", results)
 
+            # Pass prediction to template
             return render_template('home.html', results=results[0])
 
         except Exception as e:
+            print("Error during prediction:", str(e))
             return render_template('home.html', error=f"An error occurred: {str(e)}")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
