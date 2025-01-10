@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -10,7 +10,8 @@ app = application
 
 @app.route('/')
 def index():
-    return render_template('index.html') 
+    # Redirect to the /predictdata page
+    return redirect(url_for('predict_datapoint'))
 
 @app.route('/predictdata', methods=['GET', 'POST'])
 def predict_datapoint():
@@ -43,7 +44,6 @@ def predict_datapoint():
         except Exception as e:
             print("Error during prediction:", str(e))
             return render_template('home.html', error=f"An error occurred: {str(e)}")
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
