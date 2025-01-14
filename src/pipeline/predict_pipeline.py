@@ -56,8 +56,9 @@ class CustomData:
                 "writing_score": [self.writing_score],
             }
 
-            # Convert the dictionary to a DataFrame and return
+            
             return pd.DataFrame(custom_data_input_dict)
         
         except Exception as e:
             raise CustomException(e, sys)
+            
