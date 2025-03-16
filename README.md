@@ -33,4 +33,6 @@ We use CatBoost, a gradient boosting library, to predict student performance. Th
 ## Web Application
 Our Flask-based web app allows users to input student information and receive predicted test scores in real-time.
 
+## Future Updates
+
 
